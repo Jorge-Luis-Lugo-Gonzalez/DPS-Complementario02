@@ -27,13 +27,13 @@ export default InputParticipant;
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    gap: 10,
     marginBottom: 20,
+    gap: 10,
   },
   input: {
     flex: 1,
     borderWidth: 1,
-    padding: 8,
-    borderRadius: 5,
+    borderRadius: 8,
+    padding: 10,
   },
 });

@@ -8,18 +8,24 @@ const HomeScreen = () => {
   const [winner, setWinner] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
 
+  //  Agregar participante
   const addParticipant = (name) => {
     if (!name.trim()) return;
     setParticipants([...participants, name]);
   };
 
+  //  Elegir ganador aleatorio
   const selectWinner = () => {
     if (participants.length === 0) return;
+
     const randomIndex = Math.floor(Math.random() * participants.length);
-    setWinner(participants[randomIndex]);
+    const selected = participants[randomIndex];
+
+    setWinner(selected);
     setModalVisible(true);
   };
 
+  //  Reiniciar rifa
   const resetRaffle = () => {
     setParticipants([]);
     setWinner(null);
@@ -28,7 +34,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Rifa</Text>
+      <Text style={styles.title}>🎟️ Rifa App</Text>
 
       <InputParticipant onAdd={addParticipant} />
 
@@ -38,18 +44,25 @@ const HomeScreen = () => {
         onReset={resetRaffle}
       />
 
-      {/* Modal para mostrar el ganador */}
+      {/*  MODAL GANADOR */}
       <Modal
         visible={modalVisible}
-        transparent={true}
+        transparent
         animationType="slide"
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.modalContainer}>
+        <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>¡Ganador!</Text>
-            <Text style={styles.modalWinner}>{winner}</Text>
-            <Button title="Cerrar" onPress={() => setModalVisible(false)} />
+            <Text style={styles.modalTitle}>🏆 Ganador</Text>
+
+            <Text style={styles.winnerText}>
+              {winner || ''}
+            </Text>
+
+            <Button
+              title="Cerrar"
+              onPress={() => setModalVisible(false)}
+            />
           </View>
         </View>
       </Modal>
@@ -66,30 +79,30 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   title: {
-    fontSize: 22,
+    fontSize: 24,
     fontWeight: 'bold',
     marginBottom: 20,
   },
-  modalContainer: {
+  modalOverlay: {
     flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   modalContent: {
     backgroundColor: '#fff',
     padding: 30,
-    borderRadius: 10,
+    borderRadius: 12,
+    width: '80%',
     alignItems: 'center',
   },
   modalTitle: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
-    marginBottom: 15,
+    marginBottom: 10,
   },
-  modalWinner: {
+  winnerText: {
     fontSize: 18,
     marginBottom: 20,
-    color: '#333',
   },
 });

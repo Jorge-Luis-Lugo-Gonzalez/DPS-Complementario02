@@ -1,6 +1,19 @@
-import React from 'react';
-import HomeScreen from './src/screens/HomeScreen';
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, View } from 'react-native';
+import HomeScreen from './screens/HomeScreen'; // importa tu pantalla principal
 
 export default function App() {
-  return <HomeScreen />;
+  return (
+    <View style={styles.container}>
+      <HomeScreen />
+      <StatusBar style="auto" />
+    </View>
+  );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+});
